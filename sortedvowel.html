@@ -1,0 +1,120 @@
+
+<!-- 
+   *
+   *    Front End(AngularJs) Assignment for Internship
+   *    ----------------------------------------------
+   *
+   *   Author:
+   *   Lokesh Kumar Saw 
+   *   9122lav@gmail.com
+   *   8016593926
+   *
+   *-->
+
+<!--sortedvowel.html  -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+     <title>FrontEnd_Assignment | WiseStep</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="scripts/angular1.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    
+    <!-- css -->
+    <style>
+    body{margin-left: 27%;}
+  .outer{
+   /* background-color: red;*/
+    width: 450px;
+  }
+
+  .fa{
+    background-color: transparent;
+    outline: none;
+    border-color: transparent;
+    cursor: pointer;
+    font-size:26px;
+  }
+
+  textarea{
+  border: 1px solid lightgreen;
+  border-radius: 4px;
+  font-family: "Comic Sans MS",sans-serif;
+  font-size: 20px;
+  outline-color: lightgreen;
+  max-width: 500px;
+  }
+  .vowel{
+  border: 1px solid black;
+  padding: 0px 0px;
+  height: 35px;
+  font-size: 26px;
+  margin: 0;
+  border-radius: 4px;
+  text-align: center;
+  width: 500px;
+  overflow: hidden;
+  }
+
+  </style>
+
+
+  <!-- script -->
+  <script>
+        var app = angular.module("MyApp",[]);
+        app.controller('HomeController',function($scope) {
+            
+            /*cheking for vowel*/
+            $scope.isVowel=function(string) {
+                let vowels = {
+                    'a': true,
+                    'e': true,
+                    'i': true,
+                    'o': true,
+                    'u': true
+                };
+
+                let result = "";
+
+                for (let i = 0; i < string.length; i++) {
+                    let letter = string[i].toLowerCase();
+                    if (vowels[letter]) {
+                        result += string[i];
+                    }
+                };
+                return result;
+            }
+
+            /*Button Event*/
+             $scope.myFun = function(string) {
+               $scope.rotate="";
+               $scope.btn=$scope.isVowel(string);
+             };
+
+            /*on focus*/
+             $scope.focused = function(string) {
+               return $scope.rotate="fa-spin";
+             };
+
+             
+        });
+    </script>
+</head>
+<body ng-app="MyApp" ng-controller="HomeController">
+  <div>
+    <br><br>
+    <div class="outer">
+      <button ng-click="myFun(string)" ng-class="rotate"  class="fa fa-gear" ></button>
+
+      <!-- textfield to write text -->
+    <textarea ng-model="string" ng-focus="focused()" rows="10" cols="47" placeholder="Type Something..."></textarea>
+    </div>
+    <br><br><br><br>
+
+    <!-- printing vowel in sorted order -->
+    Vowel in the above text(Sorted)<br>
+    <p class="vowel">{{((btn|orderBy).toString()).split(',').join('')}} </p>
+  </div>
+</body>
+</html>
